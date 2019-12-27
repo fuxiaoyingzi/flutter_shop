@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_shop/pages/tab/home/home_top_navigator.dart';
 
+import 'home/home_ad_banner.dart';
+import 'home/home_store_info.dart';
 import 'home/home_swipper.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,15 +23,27 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            //处理数据
             var data = json.decode(snapshot.data.toString());
-            var swipData =
-                (data["data"]["slides"] as List).cast(); //集合map banner数据
+            var dataMap = data["data"];
+            //轮播图数据
+            var swipData = (dataMap["slides"] as List).cast(); //集合map banner数据
+            //GridView 分类导航数据
             var navigatorData =
-                (data["data"]["category"] as List).cast(); //集合map banner数据
+                (dataMap["category"] as List).cast(); //集合map banner数据
+            //广告图数据
+            var adPicUrl = (dataMap["advertesPicture"]["PICTURE_ADDRESS"]);
+
+            //店铺信息
+            var leaderImage = (dataMap["shopInfo"]["leaderImage"]);
+            var leaderPhone = (dataMap["shopInfo"]["leaderPhone"]);
+
             return Column(
               children: <Widget>[
                 SwiperDiy(swipData),
-                TopNavigator(navigatorData)
+                TopNavigator(navigatorData),
+                AdBanner(adPicUrl),
+                StoreInfo(leaderImage, leaderPhone),
               ],
             );
           } else {
