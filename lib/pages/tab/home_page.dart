@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -55,8 +56,17 @@ class SwiperDiy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+    print('设备宽度:${ScreenUtil.screenWidth}'); //Device width
+    print('设备高度:${ScreenUtil.screenHeight}'); //Device height
+    print('设备的像素密度:${ScreenUtil.pixelRatio}'); //Device pixel density
+    print(
+        '底部安全区距离:${ScreenUtil.bottomBarHeight}'); //Bottom safe zone distance，suitable for buttons with full screen
+    print(
+        '状态栏高度:${ScreenUtil.statusBarHeight}px'); //Status bar height , Notch will be higher Unit px
+
     return Container(
-      height: 200,
+      height: ScreenUtil().setHeight(333),
       child: new Swiper(
         itemBuilder: (BuildContext context, int index) {
           return new Image.network(
