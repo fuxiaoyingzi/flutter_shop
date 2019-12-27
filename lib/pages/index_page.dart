@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/pages/tab/cart_page.dart';
 import 'package:flutter_shop/pages/tab/category_page.dart';
 import 'package:flutter_shop/pages/tab/home_page.dart';
@@ -30,6 +31,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: bottomItem,
