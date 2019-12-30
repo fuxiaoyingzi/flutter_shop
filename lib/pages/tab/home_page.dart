@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
+import 'package:flutter_shop/pages/tab/home/home_floor.dart';
 import 'package:flutter_shop/pages/tab/home/home_top_navigator.dart';
 
 import 'home/home_ad_banner.dart';
@@ -44,6 +45,15 @@ class _HomePageState extends State<HomePage>
             var recommendList =
                 (dataMap["recommend"] as List).cast(); //集合map banner数据
 
+            //楼层商品数据
+            var floor1Pic = (dataMap["floor1Pic"]["PICTURE_ADDRESS"]);
+            var floor2Pic = (dataMap["floor2Pic"]["PICTURE_ADDRESS"]);
+            var floor3Pic = (dataMap["floor3Pic"]["PICTURE_ADDRESS"]);
+
+            var floor1 = (dataMap["floor1"] as List).cast(); //集合map banner数据
+            var floor2 = (dataMap["floor2"] as List).cast(); //集合map banner数据
+            var floor3 = (dataMap["floor3"] as List).cast(); //集合map banner数据
+
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -52,6 +62,9 @@ class _HomePageState extends State<HomePage>
                   AdBanner(adPicUrl),
                   StoreInfo(leaderImage, leaderPhone),
                   RecommendGoods(recommendList),
+                  HomeFloorView(floor1Pic, floor1),
+                  HomeFloorView(floor2Pic, floor2),
+                  HomeFloorView(floor3Pic, floor3),
                 ],
               ),
             );
