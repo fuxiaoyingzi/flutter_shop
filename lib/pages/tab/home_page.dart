@@ -5,6 +5,7 @@ import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_shop/pages/tab/home/home_top_navigator.dart';
 
 import 'home/home_ad_banner.dart';
+import 'home/home_recommend_goods.dart';
 import 'home/home_store_info.dart';
 import 'home/home_swipper.dart';
 
@@ -13,7 +14,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +40,20 @@ class _HomePageState extends State<HomePage> {
             var leaderImage = (dataMap["shopInfo"]["leaderImage"]);
             var leaderPhone = (dataMap["shopInfo"]["leaderPhone"]);
 
-            return Column(
-              children: <Widget>[
-                SwiperDiy(swipData),
-                TopNavigator(navigatorData),
-                AdBanner(adPicUrl),
-                StoreInfo(leaderImage, leaderPhone),
-              ],
+            //推荐商品
+            var recommendList =
+                (dataMap["recommend"] as List).cast(); //集合map banner数据
+
+            return SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SwiperDiy(swipData),
+                  TopNavigator(navigatorData),
+                  AdBanner(adPicUrl),
+                  StoreInfo(leaderImage, leaderPhone),
+                  RecommendGoods(recommendList),
+                ],
+              ),
             );
           } else {
             return Center(
@@ -56,4 +65,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
