@@ -31,6 +31,10 @@ dependencies:
   flutter_screenutil: ^0.7.0
   #拨打电话 调用网址等 https://pub.dev/packages/url_launcher#-readme-tab-
   url_launcher: ^5.0.1
+  #上拉加载 下拉刷新 https://github.com/xuelongqy/flutter_easyrefresh/blob/v2/document/cn/PROPERTY.md
+  flutter_easyrefresh: ^2.0.8
+  # 吐司
+  toast: ^0.1.5
 
 dev_dependencies:
   flutter_test:
