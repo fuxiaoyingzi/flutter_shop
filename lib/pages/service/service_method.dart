@@ -5,7 +5,7 @@ import 'package:flutter_shop/pages/config/service_url.dart';
 
 Future getRequestContent(url, {formData}) async {
   try {
-    print("开始获取数据..............");
+    //print("开始获取数据..............");
     Response response;
     Dio dio = new Dio();
     dio.options.contentType =

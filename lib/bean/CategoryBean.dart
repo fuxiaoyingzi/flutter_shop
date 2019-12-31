@@ -1,7 +1,7 @@
 class CategoryEntity {
   String code;
   String message;
-  List<Data> data;
+  List<CategoryData> data;
 
   CategoryEntity({this.code, this.message, this.data});
 
@@ -9,9 +9,9 @@ class CategoryEntity {
     code = json['code'];
     message = json['message'];
     if (json['data'] != null) {
-      data = new List<Data>();
+      data = new List<CategoryData>();
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data.add(new CategoryData.fromJson(v));
       });
     }
   }
@@ -27,21 +27,21 @@ class CategoryEntity {
   }
 }
 
-class Data {
+class CategoryData {
   String mallCategoryId;
   String mallCategoryName;
   List<BxMallSubDto> bxMallSubDto;
   Null comments;
   String image;
 
-  Data(
+  CategoryData(
       {this.mallCategoryId,
         this.mallCategoryName,
         this.bxMallSubDto,
         this.comments,
         this.image});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  CategoryData.fromJson(Map<String, dynamic> json) {
     mallCategoryId = json['mallCategoryId'];
     mallCategoryName = json['mallCategoryName'];
     if (json['bxMallSubDto'] != null) {
