@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/pages/index_page.dart';
+import 'package:flutter_shop/provide/CategoryChild.dart';
+import 'package:flutter_shop/provide/TestProvide.dart';
+import 'package:provide/provide.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  //状态保存
+  final providers = Providers()
+    ..provide(Provider.function((context) => Counter(0)))
+    ..provide(Provider.function((context) => CategoryChild()));
+
+  //runApp(MyApp());
+
+  runApp(ProviderNode(
+    providers: providers,
+    child: MyApp(),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   @override

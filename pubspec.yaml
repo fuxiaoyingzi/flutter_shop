@@ -35,6 +35,8 @@ dependencies:
   flutter_easyrefresh: ^2.0.8
   # 吐司
   toast: ^0.1.5
+  #状态管理 https://github.com/google/flutter-provide
+  provide: ^1.0.2
 
 dev_dependencies:
   flutter_test:

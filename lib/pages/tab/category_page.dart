@@ -5,6 +5,10 @@ import 'package:flutter_shop/bean/CategoryBean.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_shop/pages/tab/category/category_left_nav.dart';
+import 'package:flutter_shop/provide/CategoryChild.dart';
+import 'package:provide/provide.dart';
+
+import 'category/category_right_nav.dart';
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -35,9 +39,9 @@ class _CategoryPageState extends State<CategoryPage> {
         child: Row(
           children: <Widget>[
             CategoryLeftNav(dataList),
-            Center(
-              child: Text("hello shadow"),
-            )
+            Column(
+              children: <Widget>[CategoryRightNav()],
+            ),
           ],
         ),
       ),
@@ -50,8 +54,13 @@ class _CategoryPageState extends State<CategoryPage> {
       var categoryBean = CategoryEntity.fromJson(userMap);
       setState(() {
         dataList = categoryBean.data;
-        print(dataList.length);
       });
+
+      //初始化 提供 二级分类数据
+      if (dataList.length > 0) {
+        Provide.value<CategoryChild>(context)
+            .setCategoryChildList(dataList[0].bxMallSubDto);
+      }
     });
   }
 }
