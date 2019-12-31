@@ -44,7 +44,7 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
         setState(() {
           currentIndex = index;
         });
-        Provide.value<CategoryChild>(context)
+        Provide.value<CategoryChildProvide>(context)
             .setCategoryChildList(widget.categoryData[index].bxMallSubDto);
       },
       child: Container(

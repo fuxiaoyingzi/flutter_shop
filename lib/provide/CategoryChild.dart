@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/bean/CategoryBean.dart';
 
-class CategoryChild with ChangeNotifier {
+class CategoryChildProvide with ChangeNotifier {
   //二級分類 列表
   List<BxMallSubDto> bxMallSubDto = [];
+  int changeIndex;
 
   /*
   * {
@@ -14,6 +15,7 @@ class CategoryChild with ChangeNotifier {
       }
   * */
   void setCategoryChildList(List<BxMallSubDto> dataList) {
+    changeIndex = 0;
     bxMallSubDto.clear();
     BxMallSubDto all = BxMallSubDto();
     all.mallSubId = "00";
@@ -22,6 +24,11 @@ class CategoryChild with ChangeNotifier {
     all.comments = null;
     bxMallSubDto.add(all);
     bxMallSubDto.addAll(dataList);
+    notifyListeners();
+  }
+
+  void setChangeIndex(int currentIndex) {
+    this.changeIndex = currentIndex;
     notifyListeners();
   }
 }

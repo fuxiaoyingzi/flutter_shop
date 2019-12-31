@@ -8,7 +8,7 @@ void main() {
   //状态保存
   final providers = Providers()
     ..provide(Provider.function((context) => Counter(0)))
-    ..provide(Provider.function((context) => CategoryChild()));
+    ..provide(Provider.function((context) => CategoryChildProvide()));
 
   //runApp(MyApp());
 

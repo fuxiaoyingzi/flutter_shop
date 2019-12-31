@@ -14,14 +14,15 @@ class CategoryRightNav extends StatefulWidget {
 class _CategoryRightNavState extends State<CategoryRightNav> {
   @override
   Widget build(BuildContext context) {
-    return Provide<CategoryChild>(builder: (context, child, categoryChild) {
+    return Provide<CategoryChildProvide>(
+        builder: (context, child, categoryChild) {
       return Container(
         height: ScreenUtil().setHeight(100),
         width: ScreenUtil().setWidth(570),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return _getItemView(categoryChild.bxMallSubDto[index]);
+            return _getItemView(index, categoryChild.bxMallSubDto[index]);
           },
           itemCount: categoryChild.bxMallSubDto.length,
         ),
@@ -29,15 +30,26 @@ class _CategoryRightNavState extends State<CategoryRightNav> {
     });
   }
 
-  Widget _getItemView(BxMallSubDto secondCategory) {
-    return Container(
-      height: ScreenUtil().setHeight(100),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(bottom: BorderSide(color: Colors.black12, width: 1))),
-      padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-      child: Text(secondCategory.mallSubName),
+  Widget _getItemView(int index, BxMallSubDto secondCategory) {
+    bool isClick = false;
+    isClick = index == Provide.value<CategoryChildProvide>(context).changeIndex;
+    return InkWell(
+      onTap: () {
+        Provide.value<CategoryChildProvide>(context).setChangeIndex(index);
+      },
+      child: Container(
+        height: ScreenUtil().setHeight(100),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border:
+                Border(bottom: BorderSide(color: Colors.black12, width: 1))),
+        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+        child: Text(
+          secondCategory.mallSubName,
+          style: TextStyle(color: isClick ? Colors.pink : Colors.black),
+        ),
+      ),
     );
   }
 }

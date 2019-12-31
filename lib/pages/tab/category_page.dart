@@ -61,7 +61,7 @@ class _CategoryPageState extends State<CategoryPage> {
 
       //初始化 提供 二级分类数据
       if (dataList.length > 0) {
-        Provide.value<CategoryChild>(context)
+        Provide.value<CategoryChildProvide>(context)
             .setCategoryChildList(dataList[0].bxMallSubDto);
       }
     });
