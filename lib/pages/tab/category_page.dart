@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/CategoryBean.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_shop/pages/tab/category/category_left_nav.dart';
 import 'package:flutter_shop/provide/CategoryChild.dart';
 import 'package:provide/provide.dart';
 
+import 'category/category_goods.dart';
 import 'category/category_right_nav.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -36,11 +38,12 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
       ),
       body: Container(
+        height: ScreenUtil().setHeight(1980),
         child: Row(
           children: <Widget>[
             CategoryLeftNav(dataList),
             Column(
-              children: <Widget>[CategoryRightNav()],
+              children: <Widget>[CategoryRightNav(), CategoryGoods()],
             ),
           ],
         ),

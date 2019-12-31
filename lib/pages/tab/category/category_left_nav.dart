@@ -56,7 +56,7 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
           ),
           decoration: BoxDecoration(
               color:
-                  isClick ? Color.fromRGBO(230, 230, 230, 1.0) : Colors.white,
+                  isClick ? Color.fromRGBO(240, 240, 240, 1.0) : Colors.white,
               border: Border(
                   bottom: BorderSide(color: Colors.black12, width: 1),
                   right: BorderSide(color: Colors.black12, width: 1)))),
