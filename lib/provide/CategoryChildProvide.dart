@@ -5,6 +5,7 @@ class CategoryChildProvide with ChangeNotifier {
   //二級分類 列表
   List<BxMallSubDto> bxMallSubDto = [];
   int changeIndex;
+  String categoryMainId;
 
   /*
   * {
@@ -14,7 +15,9 @@ class CategoryChildProvide with ChangeNotifier {
       "comments": null
       }
   * */
-  void setCategoryChildList(List<BxMallSubDto> dataList) {
+  void setCategoryChildList(
+      List<BxMallSubDto> dataList, String categoryMainId) {
+    this.categoryMainId = categoryMainId;
     changeIndex = 0;
     bxMallSubDto.clear();
     BxMallSubDto all = BxMallSubDto();

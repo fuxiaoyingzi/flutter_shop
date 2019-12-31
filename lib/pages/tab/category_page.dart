@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/CategoryBean.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
@@ -25,7 +24,6 @@ class _CategoryPageState extends State<CategoryPage> {
   void initState() {
     super.initState();
     _getCategoryData();
-
   }
 
   @override
@@ -61,8 +59,8 @@ class _CategoryPageState extends State<CategoryPage> {
 
       //初始化 提供 二级分类数据
       if (dataList.length > 0) {
-        Provide.value<CategoryChildProvide>(context)
-            .setCategoryChildList(dataList[0].bxMallSubDto);
+        Provide.value<CategoryChildProvide>(context).setCategoryChildList(
+            dataList[0].bxMallSubDto, dataList[0].mallCategoryId);
       }
     });
   }

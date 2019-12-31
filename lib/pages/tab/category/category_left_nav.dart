@@ -62,8 +62,8 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
       onTap: () {
         if (currentIndex != index) {
           //修改二级分类数据
-          Provide.value<CategoryChildProvide>(context)
-              .setCategoryChildList(widget.categoryData[index].bxMallSubDto);
+          Provide.value<CategoryChildProvide>(context).setCategoryChildList(
+              widget.categoryData[index].bxMallSubDto, widget.categoryData[index].mallCategoryId);
 
           //修改商品列表数据
           _getCategoryGoods(widget.categoryData[index].mallCategoryId);
