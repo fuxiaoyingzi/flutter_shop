@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/pages/index_page.dart';
-import 'package:flutter_shop/provide/CategoryChild.dart';
+import 'package:flutter_shop/provide/CategoryChildProvide.dart';
+import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
 import 'package:flutter_shop/provide/TestProvide.dart';
 import 'package:provide/provide.dart';
 
@@ -8,6 +9,7 @@ void main() {
   //状态保存
   final providers = Providers()
     ..provide(Provider.function((context) => Counter(0)))
+    ..provide(Provider.function((context) => CategoryGoodsProvide()))
     ..provide(Provider.function((context) => CategoryChildProvide()));
 
   //runApp(MyApp());

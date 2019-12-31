@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/CategoryBean.dart';
-import 'package:flutter_shop/provide/CategoryChild.dart';
+import 'package:flutter_shop/bean/CategoryGoodsBean.dart';
+import 'package:flutter_shop/pages/config/service_url.dart';
+import 'package:flutter_shop/pages/service/service_method.dart';
+import 'package:flutter_shop/provide/CategoryChildProvide.dart';
+import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
 import 'package:provide/provide.dart';
 
 class CategoryLeftNav extends StatefulWidget {
@@ -17,8 +23,21 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
   int currentIndex = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.categoryData != null && widget.categoryData.length > 0) {
+      if (Provide.value<CategoryGoodsProvide>(context)
+              .categoryGoodsList
+              .length ==
+          0) {
+        _getCategoryGoods(widget.categoryData[0].mallCategoryId);
+      }
+
       return Container(
         width: ScreenUtil().setWidth(180),
         child: ListView.builder(
@@ -41,11 +60,21 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
     isClick = currentIndex == index;
     return InkWell(
       onTap: () {
+        if (currentIndex != index) {
+          //修改二级分类数据
+          Provide.value<CategoryChildProvide>(context)
+              .setCategoryChildList(widget.categoryData[index].bxMallSubDto);
+
+          //修改商品列表数据
+          _getCategoryGoods(widget.categoryData[index].mallCategoryId);
+        }
+
         setState(() {
           currentIndex = index;
         });
-        Provide.value<CategoryChildProvide>(context)
-            .setCategoryChildList(widget.categoryData[index].bxMallSubDto);
+
+        /*Provide.value<CategoryGoodsProvide>(context)
+            .setMainId(widget.categoryData[index].mallCategoryId);*/
       },
       child: Container(
           width: ScreenUtil().setWidth(180),
@@ -61,5 +90,20 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
                   bottom: BorderSide(color: Colors.black12, width: 1),
                   right: BorderSide(color: Colors.black12, width: 1)))),
     );
+  }
+
+  //获取 商品列表 数据
+  void _getCategoryGoods(String mainId) {
+    print("获取 商品列表数据");
+    var data = {
+      'categoryId': mainId == null ? "4" : mainId,
+      'categorySubId': "",
+      'page': 1
+    };
+    getRequestContent(CATEGORY_GOODS, formData: data).then((val) {
+      var jsonMap = json.decode(val.toString());
+      CategoryGoodsModel model = CategoryGoodsModel.fromJson(jsonMap);
+      Provide.value<CategoryGoodsProvide>(context).changeGoodsList(model.data);
+    });
   }
 }

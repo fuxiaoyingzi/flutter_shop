@@ -6,7 +6,7 @@ import 'package:flutter_shop/bean/CategoryBean.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_shop/pages/tab/category/category_left_nav.dart';
-import 'package:flutter_shop/provide/CategoryChild.dart';
+import 'package:flutter_shop/provide/CategoryChildProvide.dart';
 import 'package:provide/provide.dart';
 
 import 'category/category_goods.dart';
@@ -25,6 +25,7 @@ class _CategoryPageState extends State<CategoryPage> {
   void initState() {
     super.initState();
     _getCategoryData();
+
   }
 
   @override
@@ -38,7 +39,6 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
       ),
       body: Container(
-        height: ScreenUtil().setHeight(1980),
         child: Row(
           children: <Widget>[
             CategoryLeftNav(dataList),

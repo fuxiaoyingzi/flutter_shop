@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/CategoryBean.dart';
-import 'package:flutter_shop/provide/CategoryChild.dart';
+import 'package:flutter_shop/provide/CategoryChildProvide.dart';
+import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
 import 'package:provide/provide.dart';
 
 ///分类 右边 二级顶部导航
@@ -36,6 +37,10 @@ class _CategoryRightNavState extends State<CategoryRightNav> {
     return InkWell(
       onTap: () {
         Provide.value<CategoryChildProvide>(context).setChangeIndex(index);
+
+        //修改商品列表数据
+       /* Provide.value<CategoryGoodsProvide>(context)
+            .setMallSubId(secondCategory.mallSubId);*/
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
