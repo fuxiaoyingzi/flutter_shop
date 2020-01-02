@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_shop/pages/index_page.dart';
 import 'package:flutter_shop/provide/CategoryChildProvide.dart';
 import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
 import 'package:flutter_shop/provide/TestProvide.dart';
+import 'package:flutter_shop/routes/application.dart';
+import 'package:flutter_shop/routes/routes.dart';
 import 'package:provide/provide.dart';
 
 void main() {
@@ -15,6 +18,10 @@ void main() {
     ..provide(Provider.function((context) => CategoryGoodsProvide()))
     ..provide(Provider.function((context) => CategoryChildProvide()));
 
+  // 注册 fluro routes
+  Router router = Router();
+  Routes.configureRoutes(router);
+  Application.router = router;
   //runApp(MyApp());
 
   runApp(ProviderNode(
@@ -34,6 +41,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.pink,
         ),
         home: IndexPage(),
+        onGenerateRoute: Application.router.generator,
         localizationsDelegates: [
           S.delegate,
           GlobalEasyRefreshLocalizations.delegate,

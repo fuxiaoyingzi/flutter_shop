@@ -11,6 +11,7 @@ import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_shop/provide/CategoryChildProvide.dart';
 import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
+import 'package:flutter_shop/routes/navigator_util.dart';
 import 'package:flutter_shop/util.dart';
 import 'package:provide/provide.dart';
 
@@ -120,6 +121,7 @@ class _CategoryGoodsState extends State<CategoryGoods> {
     return InkWell(
       onTap: () {
         print("點擊商品 ${goodsBean.goodsName}");
+        NavigatorUtil.toGoodsDetailPage(context, goodsBean.goodsId);
       },
       child: Container(
         decoration: BoxDecoration(

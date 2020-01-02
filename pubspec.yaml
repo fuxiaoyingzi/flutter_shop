@@ -39,6 +39,8 @@ dependencies:
   toast: ^0.1.5
   #状态管理 https://github.com/google/flutter-provide
   provide: ^1.0.2
+  # 路由管理 https://github.com/theyakka/fluro/blob/master/example/lib/main.dart
+  fluro: ^1.5.1
 
 dev_dependencies:
   flutter_test:
