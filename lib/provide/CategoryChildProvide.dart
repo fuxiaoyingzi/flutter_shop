@@ -4,19 +4,15 @@ import 'package:flutter_shop/bean/CategoryBean.dart';
 class CategoryChildProvide with ChangeNotifier {
   //二級分類 列表
   List<BxMallSubDto> bxMallSubDto = [];
-  int changeIndex;
-  String categoryMainId;
+  int changeIndex; //子类切换
+  String categoryMainId = "4"; //大类id
+  String categorySubId = ""; //子类id
+  int page = 1; //加载分页
 
-  /*
-  * {
-      "mallSubId": "2c9f6c946cd22d7b016cd73dba110031",
-      "mallCategoryId": "2c9f6c946cd22d7b016cd732f0f6002f",
-      "mallSubName": "酒水饮料",
-      "comments": null
-      }
-  * */
+  //切换 一级分类
   void setCategoryChildList(
       List<BxMallSubDto> dataList, String categoryMainId) {
+    page = 1;
     this.categoryMainId = categoryMainId;
     changeIndex = 0;
     bxMallSubDto.clear();
@@ -30,8 +26,20 @@ class CategoryChildProvide with ChangeNotifier {
     notifyListeners();
   }
 
-  void setChangeIndex(int currentIndex) {
+  //切换 二级分类
+  void setChangeIndex(int currentIndex, String categorySubId) {
+    page = 1;
+    this.categorySubId = categorySubId;
     this.changeIndex = currentIndex;
     notifyListeners();
+  }
+
+  //增加分页
+  void addPage() {
+    page++;
+  }
+
+  void clearPage() {
+    page = 1;
   }
 }

@@ -1,8 +1,17 @@
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/CategoryGoodsBean.dart';
+import 'package:flutter_shop/generated/i18n.dart';
+import 'package:flutter_shop/pages/config/service_url.dart';
+import 'package:flutter_shop/pages/service/service_method.dart';
+import 'package:flutter_shop/provide/CategoryChildProvide.dart';
 import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
+import 'package:flutter_shop/util.dart';
 import 'package:provide/provide.dart';
 
 //分類商品列表
@@ -12,6 +21,8 @@ class CategoryGoods extends StatefulWidget {
 }
 
 class _CategoryGoodsState extends State<CategoryGoods> {
+  EasyRefreshController _controller = EasyRefreshController();
+
   @override
   void initState() {
     super.initState();
@@ -24,23 +35,36 @@ class _CategoryGoodsState extends State<CategoryGoods> {
       if (categoryGoodsProvide.categoryGoodsList.length > 0) {
         return Expanded(
             child: Container(
-          width: ScreenUtil().setWidth(570),
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return _getListView(
-                  categoryGoodsProvide.categoryGoodsList[index]);
-            },
-            itemCount: categoryGoodsProvide.categoryGoodsList.length,
-          ),
-        ));
+                width: ScreenUtil().setWidth(570),
+                child: EasyRefresh(
+                  header: MaterialHeader(),
+                  footer: MaterialFooter(),
+                  controller: _controller,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return _getListView(
+                          categoryGoodsProvide.categoryGoodsList[index]);
+                    },
+                    itemCount: categoryGoodsProvide.categoryGoodsList.length,
+                  ),
+                  onRefresh: () async {
+                    Provide.value<CategoryChildProvide>(context).clearPage();
+                    _getCategoryGoods();
+                  },
+                  onLoad: () async {
+                    Provide.value<CategoryChildProvide>(context).addPage();
+                    _getCategoryGoods();
+                  },
+                )));
       } else {
         return Container(
-          child: Text("正在加载数据..."),
+          child: Text("暂无数据..."),
         );
       }
     });
   }
 
+  //商品图片
   Widget _getImageView(String imgUrl) {
     return Container(
       padding: EdgeInsets.all(10),
@@ -49,6 +73,7 @@ class _CategoryGoodsState extends State<CategoryGoods> {
     );
   }
 
+  //商品名称
   Widget _getGoodsName(String name) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 10, 15, 10),
@@ -64,6 +89,7 @@ class _CategoryGoodsState extends State<CategoryGoods> {
     );
   }
 
+  //商品价格
   Widget _getGoodsPrice(double oriPrice, double presentPrice) {
     return Container(
       width: ScreenUtil().setWidth(370),
@@ -89,6 +115,7 @@ class _CategoryGoodsState extends State<CategoryGoods> {
     );
   }
 
+  //商品列表item
   Widget _getListView(CategoryGoodsBean goodsBean) {
     return InkWell(
       onTap: () {
@@ -112,5 +139,26 @@ class _CategoryGoodsState extends State<CategoryGoods> {
         ),
       ),
     );
+  }
+
+  //获取 商品列表 数据
+  void _getCategoryGoods() {
+    print("加载数据 --- ${Provide.value<CategoryChildProvide>(context).page}");
+    var data = {
+      'categoryId': Provide.value<CategoryChildProvide>(context).categoryMainId,
+      'categorySubId':
+          Provide.value<CategoryChildProvide>(context).categorySubId,
+      'page': Provide.value<CategoryChildProvide>(context).page
+    };
+    getRequestContent(CATEGORY_GOODS, formData: data).then((val) {
+      var jsonMap = json.decode(val.toString());
+      CategoryGoodsModel model = CategoryGoodsModel.fromJson(jsonMap);
+      if (model.data == null) {
+        _controller.finishLoad(noMore: true);
+        showToast(S.of(context).no_more, context);
+      } else {
+        Provide.value<CategoryGoodsProvide>(context).addGoodsList(model.data);
+      }
+    });
   }
 }

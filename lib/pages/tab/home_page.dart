@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:flutter_shop/generated/i18n.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_shop/pages/tab/home/home_floor.dart';
@@ -80,8 +81,6 @@ class _HomePageState extends State<HomePage>
                   HomeFloorView(floor1Pic, floor1),
                   HomeFloorView(floor2Pic, floor2),
                   HomeFloorView(floor3Pic, floor3),
-                  /* hotTitle,
-                  _wrapGoodsList()*/
                   HomeHotGoods(hotGoodsList)
                 ],
               ),
@@ -100,8 +99,7 @@ class _HomePageState extends State<HomePage>
                     });
                   } else {
                     //加载结束
-                    print("没有更多数据了");
-                    showToast("没有更多数据了...", context);
+                    showToast(S.of(context).no_more, context);
                   }
 
                   _controller.finishLoad(noMore: data['data'] as List == null);

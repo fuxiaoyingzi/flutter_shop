@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_shop/generated/i18n.dart';
 import 'package:flutter_shop/pages/index_page.dart';
 import 'package:flutter_shop/provide/CategoryChildProvide.dart';
 import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
@@ -31,6 +34,14 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.pink,
         ),
         home: IndexPage(),
+        localizationsDelegates: [
+          S.delegate,
+          GlobalEasyRefreshLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: S.delegate.supportedLocales,
       ),
     );
   }

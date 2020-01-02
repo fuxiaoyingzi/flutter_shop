@@ -9,7 +9,17 @@ class CategoryGoodsProvide with ChangeNotifier {
 
   void changeGoodsList(List<CategoryGoodsBean> goodsList) {
     categoryGoodsList.clear();
-    categoryGoodsList.addAll(goodsList);
+    if (goodsList != null) {
+      categoryGoodsList.addAll(goodsList);
+    }
+    notifyListeners();
+  }
+
+
+  void addGoodsList(List<CategoryGoodsBean> goodsList) {
+    if (goodsList != null) {
+      categoryGoodsList.addAll(goodsList);
+    }
     notifyListeners();
   }
 

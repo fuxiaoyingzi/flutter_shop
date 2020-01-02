@@ -41,7 +41,8 @@ class _CategoryRightNavState extends State<CategoryRightNav> {
     isClick = index == Provide.value<CategoryChildProvide>(context).changeIndex;
     return InkWell(
       onTap: () {
-        Provide.value<CategoryChildProvide>(context).setChangeIndex(index);
+        Provide.value<CategoryChildProvide>(context)
+            .setChangeIndex(index, secondCategory.mallSubId);
 
         //修改商品列表数据
         _getCategoryGoods(secondCategory.mallSubId);
@@ -67,7 +68,6 @@ class _CategoryRightNavState extends State<CategoryRightNav> {
 
   //获取 商品列表 数据
   void _getCategoryGoods(String subId) {
-    print("获取 商品列表数据");
     var data = {
       'categoryId': Provide.value<CategoryChildProvide>(context).categoryMainId,
       'categorySubId': subId,

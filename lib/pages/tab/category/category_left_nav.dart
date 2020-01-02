@@ -31,10 +31,7 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
   @override
   Widget build(BuildContext context) {
     if (widget.categoryData != null && widget.categoryData.length > 0) {
-      if (Provide.value<CategoryGoodsProvide>(context)
-              .categoryGoodsList
-              .length ==
-          0) {
+      if (Provide.value<CategoryGoodsProvide>(context).categoryGoodsList.length == 0) {
         _getCategoryGoods(widget.categoryData[0].mallCategoryId);
       }
 
@@ -94,7 +91,6 @@ class _CategoryLeftNavState extends State<CategoryLeftNav> {
 
   //获取 商品列表 数据
   void _getCategoryGoods(String mainId) {
-    print("获取 商品列表数据");
     var data = {
       'categoryId': mainId == null ? "4" : mainId,
       'categorySubId': "",
