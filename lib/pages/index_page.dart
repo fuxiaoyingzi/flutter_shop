@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/pages/tab/cart_page.dart';
-import 'package:flutter_shop/pages/tab/category_page.dart';
-import 'package:flutter_shop/pages/tab/home_page.dart';
+import 'package:flutter_shop/pages/tab/category/category_page.dart';
+import 'package:flutter_shop/pages/tab/home/home_page.dart';
 import 'package:flutter_shop/pages/tab/mine_page.dart';
 
 class IndexPage extends StatefulWidget {

@@ -11,11 +11,11 @@ import 'package:flutter_shop/pages/tab/home/home_floor.dart';
 import 'package:flutter_shop/pages/tab/home/home_top_navigator.dart';
 import 'package:flutter_shop/util.dart';
 
-import 'home/home_ad_banner.dart';
-import 'home/home_below_content.dart';
-import 'home/home_recommend_goods.dart';
-import 'home/home_store_info.dart';
-import 'home/home_swipper.dart';
+import 'home_ad_banner.dart';
+import 'home_below_content.dart';
+import 'home_recommend_goods.dart';
+import 'home_store_info.dart';
+import 'home_swipper.dart';
 
 class HomePage extends StatefulWidget {
   @override

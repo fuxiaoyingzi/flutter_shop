@@ -1,7 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/pages/goods_detail.dart';
-import 'package:flutter_shop/pages/tab/home_page.dart';
+import 'package:flutter_shop/pages/goods_detail/goods_detail.dart';
+import 'package:flutter_shop/pages/tab/home/home_page.dart';
 
 import 'common_key.dart';
 

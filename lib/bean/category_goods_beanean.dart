@@ -1,3 +1,6 @@
+/**
+ * 分类 商品 model
+ */
 class CategoryGoodsModel {
   String code;
   String message;
@@ -36,10 +39,10 @@ class CategoryGoodsBean {
 
   CategoryGoodsBean(
       {this.image,
-        this.oriPrice,
-        this.presentPrice,
-        this.goodsName,
-        this.goodsId});
+      this.oriPrice,
+      this.presentPrice,
+      this.goodsName,
+      this.goodsId});
 
   CategoryGoodsBean.fromJson(Map<String, dynamic> json) {
     image = json['image'];

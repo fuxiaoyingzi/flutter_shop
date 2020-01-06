@@ -1,3 +1,6 @@
+/**
+ * 分类 模型
+ */
 class CategoryEntity {
   String code;
   String message;
@@ -36,10 +39,10 @@ class CategoryData {
 
   CategoryData(
       {this.mallCategoryId,
-        this.mallCategoryName,
-        this.bxMallSubDto,
-        this.comments,
-        this.image});
+      this.mallCategoryName,
+      this.bxMallSubDto,
+      this.comments,
+      this.image});
 
   CategoryData.fromJson(Map<String, dynamic> json) {
     mallCategoryId = json['mallCategoryId'];

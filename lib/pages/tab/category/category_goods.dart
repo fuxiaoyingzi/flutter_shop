@@ -5,7 +5,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_shop/bean/CategoryGoodsBean.dart';
+import 'package:flutter_shop/bean/category_goods_beanean.dart';
 import 'package:flutter_shop/generated/i18n.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
@@ -145,7 +145,6 @@ class _CategoryGoodsState extends State<CategoryGoods> {
 
   //获取 商品列表 数据
   void _getCategoryGoods() {
-    print("加载数据 --- ${Provide.value<CategoryChildProvide>(context).page}");
     var data = {
       'categoryId': Provide.value<CategoryChildProvide>(context).categoryMainId,
       'categorySubId':

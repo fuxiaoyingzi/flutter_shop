@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/bean/CategoryBean.dart';
+import 'package:flutter_shop/bean/category_bean.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
 import 'package:flutter_shop/pages/tab/category/category_left_nav.dart';
 import 'package:flutter_shop/provide/CategoryChildProvide.dart';
 import 'package:provide/provide.dart';
 
-import 'category/category_goods.dart';
-import 'category/category_right_nav.dart';
+import 'category_goods.dart';
+import 'category_right_nav.dart';
 
 class CategoryPage extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/bean/CategoryBean.dart';
+import 'package:flutter_shop/bean/category_bean.dart';
 
 class CategoryChildProvide with ChangeNotifier {
   //二級分類 列表
