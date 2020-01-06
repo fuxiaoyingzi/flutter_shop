@@ -41,6 +41,8 @@ dependencies:
   provide: ^1.0.2
   # 路由管理 https://github.com/theyakka/fluro/blob/master/example/lib/main.dart
   fluro: ^1.5.1
+  # html 插件 https://github.com/Sub6Resources/flutter_html
+  flutter_html: ^0.11.1
 
 dev_dependencies:
   flutter_test:

@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/bean/goods_detail_bean.dart';
 import 'package:flutter_shop/pages/config/service_url.dart';
 import 'package:flutter_shop/pages/service/service_method.dart';
+import 'package:flutter_shop/provide/goods_detail.dart';
+import 'package:provide/provide.dart';
 
+import 'goods_detail_bottom.dart';
+import 'goods_detail_tabbar.dart';
 import 'goods_detail_top.dart';
+import 'goods_web.dart';
 
 class GoodsDetail extends StatefulWidget {
   String goodsId;
@@ -25,6 +30,28 @@ class _GoodsDetailState extends State<GoodsDetail> {
     mGoodsDetailData = null;
   }
 
+  Widget _getContentView() {
+    return Stack(
+      children: <Widget>[
+        Container(
+          child: ListView(
+            children: <Widget>[
+              GoodsDetailTopArea(mGoodsDetailData),
+              GoodsDetailTabBar(),
+              GoodsWebPage(mGoodsDetailData)
+            ],
+          ),
+        ),
+        Positioned(
+          child: GoodsDetailBottom(mGoodsDetailData),
+          left: 0,
+          bottom: 0,
+          right: 0,
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +63,8 @@ class _GoodsDetailState extends State<GoodsDetail> {
             }),
         centerTitle: true,
         title: Text(
-          mGoodsDetailData != null
-              ? mGoodsDetailData.goodInfo.goodsName
+          Provide.value<GoodsDetailProvider>(context).mGoodsDetailData != null
+              ? Provide.value<GoodsDetailProvider>(context).mGoodsDetailData.goodInfo.goodsName
               : "商品详情",
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -47,19 +74,9 @@ class _GoodsDetailState extends State<GoodsDetail> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var jsonMap = json.decode(snapshot.data.toString());
-            var mGoodsDetail = GoodsDetailModel.fromJson(jsonMap).data;
-            Future.delayed(Duration(milliseconds: 200)).then((e) {
-              setState(() {
-                mGoodsDetailData = mGoodsDetail;
-              });
-            });
-            return Container(
-              child: ListView(
-                children: <Widget>[
-                  GoodsDetailTopArea(mGoodsDetail),
-                ],
-              ),
-            );
+            mGoodsDetailData = GoodsDetailModel.fromJson(jsonMap).data;
+            Provide.value<GoodsDetailProvider>(context).updateGoodsDetailData(mGoodsDetailData);
+            return _getContentView();
           } else {
             return Text("加载中....");
           }
@@ -73,6 +90,6 @@ class _GoodsDetailState extends State<GoodsDetail> {
     var data = {
       'goodId': widget.goodsId,
     };
-    return getRequestContent(GOODS_DETAIL, formData: data);
+    return await getRequestContent(GOODS_DETAIL, formData: data);
   }
 }
