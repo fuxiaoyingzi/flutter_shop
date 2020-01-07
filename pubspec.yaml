@@ -43,6 +43,8 @@ dependencies:
   fluro: ^1.5.1
   # html 插件 https://github.com/Sub6Resources/flutter_html
   flutter_html: ^0.11.1
+  # 数据存储 https://pub.dev/packages/shared_preferences#-readme-tab-
+  shared_preferences: ^0.5.4
 
 dev_dependencies:
   flutter_test:

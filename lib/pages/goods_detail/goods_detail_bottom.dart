@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/goods_detail_bean.dart';
+import 'package:flutter_shop/provide/cart_info.dart';
+import 'package:provide/provide.dart';
 
 /**
  * 底部按钮
@@ -19,8 +21,8 @@ class GoodsDetailBottom extends StatelessWidget {
       child: Row(
         children: <Widget>[
           _getShopCarView(),
-          _getButton(true),
-          _getButton(false),
+          _getButton(context, true),
+          _getButton(context, false),
         ],
       ),
     );
@@ -44,10 +46,14 @@ class GoodsDetailBottom extends StatelessWidget {
   }
 
   ///底部按钮
-  _getButton(bool addShopCart) {
+  _getButton(context, bool addShopCart) {
     return InkWell(
-      onTap: () {
-        addShopCart ? print("加入购物车") : print("立即购买");
+      onTap: () async {
+        if (addShopCart) {
+          Provide.value<CartInfoProvider>(context).addCart(mGoodsDetailData);
+        } else {
+          Provide.value<CartInfoProvider>(context).cleanCart();
+        }
       },
       child: Container(
         alignment: Alignment.center,
