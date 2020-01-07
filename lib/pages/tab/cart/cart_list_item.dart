@@ -16,7 +16,7 @@ class CartListItemWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(5)),
           color: Colors.white,
           border: Border.all(width: 1, color: Colors.black12)),
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
       padding: EdgeInsets.fromLTRB(0, 10, 5, 10),
       child: Flex(
         direction: Axis.horizontal,
