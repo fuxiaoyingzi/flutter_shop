@@ -13,14 +13,7 @@ class CartInfoProvider with ChangeNotifier {
   ///添加商品 到购物车
   void addCart(GoodsDetailData mGoodsDetailData) async {
     var sp = await SharedPreferences.getInstance();
-    var tempJson;
-    if (sp.getString(CART_INFO) != null) {
-      tempJson = json.decode(sp.getString(CART_INFO));
-    }
-    List<Map> tempList = [];
-    if (tempJson != null) {
-      tempList = (tempJson as List).cast();
-    }
+    List<Map> tempList = await _getSpData(sp);
 
     bool isHave = false;
     for (int i = 0; i < tempList.length; i++) {
@@ -39,7 +32,8 @@ class CartInfoProvider with ChangeNotifier {
         "goodsName": mGoodsDetailData.goodInfo.goodsName,
         "goodsPrice": mGoodsDetailData.goodInfo.presentPrice,
         "goodsImg": mGoodsDetailData.goodInfo.image1,
-        "count": 1
+        "count": 1,
+        "isCheck": true
       };
       tempList.add(jsonMap);
       cartInfoList.add(CartInfoModel.fromJson(jsonMap));
@@ -47,7 +41,7 @@ class CartInfoProvider with ChangeNotifier {
 
     print(
         "加入购物车=============>${json.encode(tempList).toString()} ==== cartInfoList.length = ${cartInfoList.length}");
-    tempJson = json.encode(tempList).toString();
+    var tempJson = json.encode(tempList).toString();
     sp.setString(CART_INFO, tempJson);
     notifyListeners();
   }
@@ -64,6 +58,35 @@ class CartInfoProvider with ChangeNotifier {
   //获取购物车列表
   void getCartList() async {
     var sp = await SharedPreferences.getInstance();
+    var tempList = await _getSpData(sp);
+    cartInfoList = [];
+    tempList.forEach((item) {
+      cartInfoList.add(CartInfoModel.fromJson(item));
+    });
+    notifyListeners();
+  }
+
+  /**
+   * 删除数据
+   */
+  void deleteGoods(String goodsId) async {
+    var sp = await SharedPreferences.getInstance();
+    var tempList = await _getSpData(sp);
+
+    for (int i = 0; i < tempList.length; i++) {
+      if (tempList[i]["goodsId"] == goodsId) {
+        tempList.removeAt(i);
+        break;
+      }
+    }
+
+    var tempJson = json.encode(tempList).toString();
+    sp.setString(CART_INFO, tempJson);
+    getCartList();
+  }
+
+  ///获取 sp数据
+  Future<List<Map>> _getSpData(SharedPreferences sp) async {
     var tempJson;
     if (sp.getString(CART_INFO) != null) {
       tempJson = json.decode(sp.getString(CART_INFO));
@@ -72,10 +95,6 @@ class CartInfoProvider with ChangeNotifier {
     if (tempJson != null) {
       tempList = (tempJson as List).cast();
     }
-    cartInfoList = [];
-    tempList.forEach((item) {
-      cartInfoList.add(CartInfoModel.fromJson(item));
-    });
-    notifyListeners();
+    return tempList;
   }
 }

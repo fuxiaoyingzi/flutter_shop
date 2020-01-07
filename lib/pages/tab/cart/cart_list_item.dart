@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/cart_info_bean.dart';
 import 'package:flutter_shop/pages/tab/cart/cart_count.dart';
+import 'package:flutter_shop/provide/cart_info.dart';
+import 'package:provide/provide.dart';
 
 class CartListItemWidget extends StatelessWidget {
   CartInfoModel mCartInfo;
@@ -25,7 +27,7 @@ class CartListItemWidget extends StatelessWidget {
           _getCheckIcon(),
           _getGoodsImage(),
           _getGoodsName(),
-          _getGoodsPrice()
+          _getGoodsPrice(context)
         ],
       ),
     );
@@ -37,7 +39,7 @@ class CartListItemWidget extends StatelessWidget {
         child: Container(
       padding: EdgeInsets.only(left: 5, right: 5),
       child: Checkbox(
-        value: true,
+        value: mCartInfo.isCheck,
         onChanged: (val) {},
         activeColor: Colors.pinkAccent,
       ),
@@ -85,7 +87,7 @@ class CartListItemWidget extends StatelessWidget {
   }
 
   //商品价格
-  Widget _getGoodsPrice() {
+  Widget _getGoodsPrice(context) {
     return Expanded(
         child: Container(
       margin: EdgeInsets.only(left: 10),
@@ -107,10 +109,16 @@ class CartListItemWidget extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Icon(
-            Icons.delete,
-            color: Colors.blue,
-            size: 30,
+          InkWell(
+            onTap: () {
+              Provide.value<CartInfoProvider>(context)
+                  .deleteGoods(mCartInfo.goodsId);
+            },
+            child: Icon(
+              Icons.delete,
+              color: Colors.blue,
+              size: 30,
+            ),
           )
         ],
       ),
