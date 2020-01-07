@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/cart_info_bean.dart';
+import 'package:flutter_shop/pages/tab/cart/cart_count.dart';
 
 class CartListItemWidget extends StatelessWidget {
   CartInfoModel mCartInfo;
@@ -22,7 +23,7 @@ class CartListItemWidget extends StatelessWidget {
         direction: Axis.horizontal,
         children: <Widget>[
           _getCheckIcon(),
-          _getImge(),
+          _getGoodsImage(),
           _getGoodsName(),
           _getGoodsPrice()
         ],
@@ -44,7 +45,7 @@ class CartListItemWidget extends StatelessWidget {
   }
 
   //商品图片
-  Widget _getImge() {
+  Widget _getGoodsImage() {
     return Expanded(
         child: Container(
       width: ScreenUtil().setWidth(150),
@@ -58,25 +59,32 @@ class CartListItemWidget extends StatelessWidget {
     ));
   }
 
-  //选中与否
+  //商品名称
   Widget _getGoodsName() {
     return Expanded(
         flex: 2,
         child: Container(
+          alignment: Alignment.centerLeft,
           margin: EdgeInsets.only(left: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
                 "${mCartInfo.goodsName}",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-              )
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              CartCountWidget(),
             ],
           ),
         ));
   }
 
-  //选中与否
+  //商品价格
   Widget _getGoodsPrice() {
     return Expanded(
         child: Container(
