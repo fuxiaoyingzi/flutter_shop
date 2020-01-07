@@ -12,9 +12,13 @@ class GoodsWebPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: getPageView(context),
-    );
+    return Provide<GoodsDetailProvider>(builder: (context, child, value) {
+      return Container(
+        width: ScreenUtil().setWidth(750),
+        margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(110)),
+        child: getPageView(context),
+      );
+    });
   }
 
   getPageView(context) {
@@ -23,8 +27,6 @@ class GoodsWebPage extends StatelessWidget {
             data: mGoodsDetail.goodInfo.goodsDetail,
           )
         : Container(
-            margin: EdgeInsets.only(bottom: 120),
-            width: ScreenUtil().setWidth(750),
             alignment: Alignment.center,
             child: Text("暂时没有评论..."),
           );

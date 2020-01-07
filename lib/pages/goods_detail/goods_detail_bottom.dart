@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/goods_detail_bean.dart';
 
+/**
+ * 底部按钮
+ */
 class GoodsDetailBottom extends StatelessWidget {
   GoodsDetailData mGoodsDetailData;
 
@@ -23,17 +26,24 @@ class GoodsDetailBottom extends StatelessWidget {
     );
   }
 
+  ///购物车
   _getShopCarView() {
-    return Container(
-      width: ScreenUtil().setWidth(110),
-      height: ScreenUtil().setHeight(90),
-      child: Icon(
-        Icons.shopping_cart,
-        color: Colors.pinkAccent,
+    return InkWell(
+      onTap: () {
+        print("跳转购物车界面");
+      },
+      child: Container(
+        width: ScreenUtil().setWidth(110),
+        height: ScreenUtil().setHeight(90),
+        child: Icon(
+          Icons.shopping_cart,
+          color: Colors.pinkAccent,
+        ),
       ),
     );
   }
 
+  ///底部按钮
   _getButton(bool addShopCart) {
     return InkWell(
       onTap: () {

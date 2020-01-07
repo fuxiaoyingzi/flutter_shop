@@ -42,6 +42,7 @@ class _GoodsDetailState extends State<GoodsDetail> {
             ],
           ),
         ),
+
         Positioned(
           child: GoodsDetailBottom(mGoodsDetailData),
           left: 0,
@@ -62,10 +63,7 @@ class _GoodsDetailState extends State<GoodsDetail> {
               Navigator.pop(context);
             }),
         centerTitle: true,
-        title: Text(
-          Provide.value<GoodsDetailProvider>(context).mGoodsDetailData != null
-              ? Provide.value<GoodsDetailProvider>(context).mGoodsDetailData.goodInfo.goodsName
-              : "商品详情",
+        title: Text("商品详情",
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -75,7 +73,6 @@ class _GoodsDetailState extends State<GoodsDetail> {
           if (snapshot.hasData) {
             var jsonMap = json.decode(snapshot.data.toString());
             mGoodsDetailData = GoodsDetailModel.fromJson(jsonMap).data;
-            Provide.value<GoodsDetailProvider>(context).updateGoodsDetailData(mGoodsDetailData);
             return _getContentView();
           } else {
             return Text("加载中....");

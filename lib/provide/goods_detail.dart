@@ -4,21 +4,14 @@
 * */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/bean/goods_detail_bean.dart';
 
 class GoodsDetailProvider with ChangeNotifier {
   bool isLeft = true;
   bool isRight = false;
-  GoodsDetailData mGoodsDetailData;
 
   void setClick(leftClick, rightClick) {
     isLeft = leftClick;
     isRight = rightClick;
-    notifyListeners();
-  }
-
-  void updateGoodsDetailData(GoodsDetailData mGoodsDetailData) {
-    this.mGoodsDetailData = mGoodsDetailData;
     notifyListeners();
   }
 }
