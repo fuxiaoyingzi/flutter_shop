@@ -9,6 +9,7 @@ import 'package:flutter_shop/provide/CategoryGoodsProvide.dart';
 import 'package:flutter_shop/provide/TestProvide.dart';
 import 'package:flutter_shop/provide/cart_info.dart';
 import 'package:flutter_shop/provide/goods_detail.dart';
+import 'package:flutter_shop/provide/tab_change.dart';
 import 'package:flutter_shop/routes/application.dart';
 import 'package:flutter_shop/routes/routes.dart';
 import 'package:provide/provide.dart';
@@ -20,6 +21,7 @@ void main() {
     ..provide(Provider.function((context) => CategoryGoodsProvide()))
     ..provide(Provider.function((context) => CategoryChildProvide()))
     ..provide(Provider.function((context) => CartInfoProvider()))
+    ..provide(Provider.function((context) => TabChangeProvider()))
     ..provide(Provider.function((context) => GoodsDetailProvider()));
 
   // 注册 fluro routes

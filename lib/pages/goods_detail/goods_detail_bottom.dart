@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/bean/goods_detail_bean.dart';
 import 'package:flutter_shop/provide/cart_info.dart';
+import 'package:flutter_shop/provide/tab_change.dart';
+import 'package:flutter_shop/util.dart';
 import 'package:provide/provide.dart';
 
-/**
- * 底部按钮
- */
+///商品详情 底部按钮
 class GoodsDetailBottom extends StatelessWidget {
   GoodsDetailData mGoodsDetailData;
 
@@ -14,33 +14,58 @@ class GoodsDetailBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      width: ScreenUtil().setWidth(750),
-      height: ScreenUtil().setHeight(90),
-      child: Row(
-        children: <Widget>[
-          _getShopCarView(),
-          _getButton(context, true),
-          _getButton(context, false),
-        ],
-      ),
-    );
+    Provide.value<CartInfoProvider>(context).getCartListCount();
+
+    return Provide<CartInfoProvider>(builder: (context, child, value) {
+      return Container(
+        color: Colors.white,
+        width: ScreenUtil().setWidth(750),
+        height: ScreenUtil().setHeight(90),
+        child: Row(
+          children: <Widget>[
+            _getShopCarView(context),
+            _getButton(context, true),
+            _getButton(context, false),
+          ],
+        ),
+      );
+    });
   }
 
   ///购物车
-  _getShopCarView() {
+  _getShopCarView(context) {
     return InkWell(
       onTap: () {
-        print("跳转购物车界面");
+        //跳转购物车
+        Provide.value<TabChangeProvider>(context).changeCurrentIndex(2);
+        Navigator.pop(context);
       },
-      child: Container(
-        width: ScreenUtil().setWidth(110),
-        height: ScreenUtil().setHeight(90),
-        child: Icon(
-          Icons.shopping_cart,
-          color: Colors.pinkAccent,
-        ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: ScreenUtil().setWidth(110),
+            height: ScreenUtil().setHeight(90),
+            child: Icon(
+              Icons.shopping_cart,
+              color: Colors.pinkAccent,
+            ),
+          ),
+          Positioned(
+              top: 3,
+              right: 5,
+              child: Container(
+                padding: EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 1)),
+                child: Text(
+                  "${Provide.value<CartInfoProvider>(context).addGoodsCount}",
+                  style: TextStyle(
+                      color: Colors.white, fontSize: ScreenUtil().setSp(20)),
+                ),
+              ))
+        ],
       ),
     );
   }
@@ -50,9 +75,11 @@ class GoodsDetailBottom extends StatelessWidget {
     return InkWell(
       onTap: () async {
         if (addShopCart) {
-          Provide.value<CartInfoProvider>(context).addCart(mGoodsDetailData);
+          bool res = await Provide.value<CartInfoProvider>(context).addCart(mGoodsDetailData);
+          showToast(res ? "添加购物车成功" : "添加购物车失败", context);
         } else {
-          Provide.value<CartInfoProvider>(context).cleanCart();
+          bool res = await Provide.value<CartInfoProvider>(context).cleanCart();
+          showToast(res ? "清空购物车成功" : "清空购物车失败", context);
         }
       },
       child: Container(

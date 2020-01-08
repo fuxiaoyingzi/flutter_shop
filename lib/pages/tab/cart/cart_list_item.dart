@@ -13,37 +13,43 @@ class CartListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: ScreenUtil().setWidth(750),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          color: Colors.white,
-          border: Border.all(width: 1, color: Colors.black12)),
-      margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-      padding: EdgeInsets.fromLTRB(0, 10, 5, 10),
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          _getCheckIcon(),
-          _getGoodsImage(),
-          _getGoodsName(),
-          _getGoodsPrice(context)
-        ],
-      ),
-    );
+    return Provide<CartInfoProvider>(builder: (context, child, value) {
+      return Container(
+        width: ScreenUtil().setWidth(750),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: Colors.white,
+            border: Border.all(width: 1, color: Colors.black12)),
+        margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+        padding: EdgeInsets.fromLTRB(0, 10, 5, 10),
+        child: Flex(
+          direction: Axis.horizontal,
+          children: <Widget>[
+            _getCheckIcon(context),
+            _getGoodsImage(),
+            _getGoodsName(),
+            _getGoodsPrice(context)
+          ],
+        ),
+      );
+    });
   }
 
   //选中与否
-  Widget _getCheckIcon() {
+  Widget _getCheckIcon(context) {
     return Expanded(
-        child: Container(
-      padding: EdgeInsets.only(left: 5, right: 5),
-      child: Checkbox(
-        value: mCartInfo.isCheck,
-        onChanged: (val) {},
-        activeColor: Colors.pinkAccent,
+      child: Container(
+        padding: EdgeInsets.only(left: 5, right: 5),
+        child: Checkbox(
+          value: mCartInfo.isCheck,
+          onChanged: (val) {
+            Provide.value<CartInfoProvider>(context)
+                .changeCheck(mCartInfo.goodsId, val);
+          },
+          activeColor: Colors.pinkAccent,
+        ),
       ),
-    ));
+    );
   }
 
   //商品图片
@@ -80,7 +86,7 @@ class CartListItemWidget extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              CartCountWidget(),
+              CartCountWidget(mCartInfo),
             ],
           ),
         ));

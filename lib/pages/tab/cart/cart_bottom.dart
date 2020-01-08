@@ -16,7 +16,7 @@ class CartBottomWidget extends StatelessWidget {
         child: Flex(
           direction: Axis.horizontal,
           children: <Widget>[
-            _checkAll(value),
+            _checkAll(context, value),
             _orderPrice(value),
             _buyNow(value)
           ],
@@ -25,7 +25,8 @@ class CartBottomWidget extends StatelessWidget {
     });
   }
 
-  Widget _checkAll(CartInfoProvider value) {
+  //全选
+  Widget _checkAll(context, CartInfoProvider value) {
     return Expanded(
         child: Container(
       alignment: Alignment.center,
@@ -34,7 +35,7 @@ class CartBottomWidget extends StatelessWidget {
           Checkbox(
             value: value.checkAll,
             onChanged: (val) {
-              print("改变全选 == $val");
+              Provide.value<CartInfoProvider>(context).checkAllGoods(val);
             },
             activeColor: Colors.pinkAccent,
           ),
@@ -47,6 +48,7 @@ class CartBottomWidget extends StatelessWidget {
     ));
   }
 
+  //选中金额
   Widget _orderPrice(CartInfoProvider value) {
     return Expanded(
         flex: 2,
@@ -62,7 +64,7 @@ class CartBottomWidget extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 18),
                     children: <TextSpan>[
                       TextSpan(
-                          text: '￥${value.checkPrice} ',
+                          text: '￥${value.checkPrice.toStringAsFixed(2)} ',
                           style: TextStyle(
                               fontSize: 16, color: Colors.pinkAccent)),
                     ],
@@ -81,6 +83,7 @@ class CartBottomWidget extends StatelessWidget {
         ));
   }
 
+  //立即购买
   Widget _buyNow(CartInfoProvider value) {
     return Container(
       margin: EdgeInsets.only(left: 10),
