@@ -6,6 +6,7 @@ class CartInfoModel {
   int count;
   bool isCheck;
 
+
   CartInfoModel(
       {this.goodsId,
       this.goodsName,

@@ -9,6 +9,9 @@ class CartInfoProvider with ChangeNotifier {
   List<CartInfoModel> cartInfoList = [];
 
   static final String CART_INFO = "cartInfo";
+  bool checkAll = true;
+  double checkPrice = 0;
+  int checkCount = 0;
 
   ///添加商品 到购物车
   void addCart(GoodsDetailData mGoodsDetailData) async {
@@ -60,8 +63,19 @@ class CartInfoProvider with ChangeNotifier {
     var sp = await SharedPreferences.getInstance();
     var tempList = await _getSpData(sp);
     cartInfoList = [];
+    checkAll = true;
+    checkCount = 0;
+    checkPrice = 0;
+
     tempList.forEach((item) {
-      cartInfoList.add(CartInfoModel.fromJson(item));
+      var cartInfoModel = CartInfoModel.fromJson(item);
+      cartInfoList.add(cartInfoModel);
+      if (cartInfoModel.isCheck) {
+        checkPrice += cartInfoModel.count * cartInfoModel.goodsPrice;
+        checkCount += cartInfoModel.count;
+      } else {
+        checkAll = false;
+      }
     });
     notifyListeners();
   }

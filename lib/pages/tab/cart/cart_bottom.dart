@@ -1,30 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_shop/provide/cart_info.dart';
+import 'package:provide/provide.dart';
 
 class CartBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: ScreenUtil().setWidth(750),
-      color: Colors.white,
-      padding: EdgeInsets.all(10),
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[_checkAll(), _orderPrice(), _buyNow()],
-      ),
-    );
+    return Provide<CartInfoProvider>(builder: (context, child, value) {
+      return Container(
+        alignment: Alignment.center,
+        width: ScreenUtil().setWidth(750),
+        color: Colors.white,
+        padding: EdgeInsets.all(10),
+        child: Flex(
+          direction: Axis.horizontal,
+          children: <Widget>[
+            _checkAll(value),
+            _orderPrice(value),
+            _buyNow(value)
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _checkAll() {
+  Widget _checkAll(CartInfoProvider value) {
     return Expanded(
         child: Container(
       alignment: Alignment.center,
       child: Row(
         children: <Widget>[
           Checkbox(
-            value: true,
+            value: value.checkAll,
             onChanged: (val) {
               print("改变全选 == $val");
             },
@@ -39,7 +47,7 @@ class CartBottomWidget extends StatelessWidget {
     ));
   }
 
-  Widget _orderPrice() {
+  Widget _orderPrice(CartInfoProvider value) {
     return Expanded(
         flex: 2,
         child: Container(
@@ -54,7 +62,7 @@ class CartBottomWidget extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 18),
                     children: <TextSpan>[
                       TextSpan(
-                          text: '￥1992.68 ',
+                          text: '￥${value.checkPrice} ',
                           style: TextStyle(
                               fontSize: 16, color: Colors.pinkAccent)),
                     ],
@@ -73,7 +81,7 @@ class CartBottomWidget extends StatelessWidget {
         ));
   }
 
-  Widget _buyNow() {
+  Widget _buyNow(CartInfoProvider value) {
     return Container(
       margin: EdgeInsets.only(left: 10),
       child: Container(
@@ -83,7 +91,7 @@ class CartBottomWidget extends StatelessWidget {
             color: Colors.pinkAccent,
             borderRadius: BorderRadius.all(Radius.circular(3))),
         child: Text(
-          "结算(6)",
+          "结算(${value.checkCount})",
           style: TextStyle(color: Colors.white),
         ),
       ),
